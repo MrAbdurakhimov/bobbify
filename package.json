@@ -1,6 +1,7 @@
 {
   "name": "bobbify",
   "version": "0.0.1",
+  "description": "I want just fuckin sleep!",
   "private": true,
   "dependencies": {
     "emoji-mart": "^2.11.1",
