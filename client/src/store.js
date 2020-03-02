@@ -5,80 +5,51 @@ import Realtime from './realtime'
 
 export default class Store {
     constructor(appComponent) {
-
         this.app = appComponent;
         this.service = new Service();
         this.messages = new OrderedMap();
         this.channels = new OrderedMap();
         this.activeChannelId = null;
-
-
         this.token = this.getTokenFromLocalStore();
-
         this.user = this.getUserFromLocalStorage();
         this.users = new OrderedMap();
-
         this.search = {
             users: new OrderedMap(),
-        }
-
-
+        };
         this.realtime = new Realtime(this);
-
         this.fetchUserChannels();
-
-
     }
 
     isConnected(){
-
         return this.realtime.isConnected;
     }
+
     fetchUserChannels(){
-
         const userToken = this.getUserTokenId();
-
         if(userToken){
-
-
             const options = {
                 headers: {
                     authorization: userToken,
                 }
-            }
-
+            };
             this.service.get(`api/me/channels`, options).then((response) => {
-
                 const channels = response.data;
-
                 _.each(channels, (c) => {
-
                     this.realtime.onAddChannel(c);
                 });
-
-
                 const firstChannelId = _.get(channels, '[0]._id', null);
-
                 this.fetchChannelMessages(firstChannelId);
-
-
             }).catch((err) => {
-
                 console.log("An error fetching user channels", err);
             })
         }
     }
 
     addUserToCache(user) {
-
         user.avatar = this.loadUserAvatar(user);
         const id = _.toString(user._id);
         this.users = this.users.set(id, user);
-
-
         return user;
-
-
     }
 
     getUserTokenId() {
@@ -86,152 +57,97 @@ export default class Store {
     }
 
     loadUserAvatar(user) {
-
         return `https://api.adorable.io/avatars/100/${user._id}.png`
     }
 
     startSearchUsers(q = "") {
-
         // query to backend servr and get list of users.
         const data = {search: q};
-
         this.search.users = this.search.users.clear();
-
         this.service.post('api/users/search', data).then((response) => {
-
             // list of users matched.
             const users = _.get(response, 'data', []);
-
             _.each(users, (user) => {
-
                 // cache to this.users
-                // add user to this.search.users 
-
+                // add user to this.search.users
                 user.avatar = this.loadUserAvatar(user);
                 const userId = `${user._id}`;
-
                 this.users = this.users.set(userId, user);
                 this.search.users = this.search.users.set(userId, user);
-
-
             });
-
-
             // update component
             this.update();
-
-
-        }).catch((err) => {
-
-
-            //console.log("searching errror", err);
         })
-
     }
-
     setUserToken(accessToken) {
-
         if (!accessToken) {
-
             this.localStorage.removeItem('token');
             this.token = null;
-
             return;
         }
-
         this.token = accessToken;
         localStorage.setItem('token', JSON.stringify(accessToken));
-
     }
 
     getTokenFromLocalStore() {
-
-
         if (this.token) {
             return this.token;
         }
-
         let token = null;
-
         const data = localStorage.getItem('token');
         if (data) {
-
             try {
-
                 token = JSON.parse(data);
             }
             catch (err) {
-
                 console.log(err);
             }
         }
-
         return token;
     }
 
     getUserFromLocalStorage() {
-
         let user = null;
         const data = localStorage.getItem('me');
         try {
-
             user = JSON.parse(data);
         }
         catch (err) {
-
             console.log(err);
         }
-
-
         if (user) {
-
             // try to connect to backend server and verify this user is exist.
             const token = this.getTokenFromLocalStore();
             const tokenId = _.get(token, '_id');
-
             const options = {
                 headers: {
                     authorization: tokenId,
                 }
-            }
+            };
             this.service.get('api/users/me', options).then((response) => {
-
                 // this mean user is logged with this token id.
-
                 const accessToken = response.data;
                 const user = _.get(accessToken, 'user');
-
                 this.setCurrentUser(user);
                 this.setUserToken(accessToken);
-
             }).catch(err => {
-
                 this.signOut();
-
             });
-
         }
         return user;
     }
 
     setCurrentUser(user) {
-
-
         // set temporary user avatar image url
         user.avatar = this.loadUserAvatar(user);
         this.user = user;
-
-
         if (user) {
             localStorage.setItem('me', JSON.stringify(user));
-
             // save this user to our users collections in local 
             const userId = `${user._id}`;
             this.users = this.users.set(userId, user);
         }
-
         this.update();
-
     }
 
     clearCacheData(){
