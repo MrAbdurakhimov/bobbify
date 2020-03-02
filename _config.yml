@@ -1,1 +1,5 @@
-theme: jekyll-theme-architect
+theme: jekyll-theme-minimal
+title: Bobbify - Yet another social messenger
+description: Social Messenger created in Node JS [React, Express]
+logo: assets/logo.png
+show_downloads: true
