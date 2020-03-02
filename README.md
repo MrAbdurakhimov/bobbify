@@ -54,29 +54,3 @@ npm start
 > Important Note: Under the CC0 1.0 Universal license, if you're running your own instance, you should add a link to the source [(this repository)](https://github.com/sakhib-orzklv/bobbify) in your websites bio. If you're modifying this source and making your own bot, you should link to the source of your own version of the bot according to the CC0 1.0 Universal license. Check [LICENSE](LICENSE) for more info.
 
 `BSBA` icon is from [Genemator](https://t.me/sakhib_orzklv/) by Sokhibjon Orzikulov.
-
-# Bobbify Messenger
-
-Create messenger chat application use Nodejs Expressjs, Reactjs.
-
-## Server Side
-
-``` 
-cd server 
-```
-```
-npm install
-```
-
-```
-npm run dev
-```
-## Client Side
-
-```
-cd client
-```
-
-```
-npm start
-```
