@@ -15,6 +15,7 @@ export default class Channel {
 
     aggregate(q){
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
 
@@ -33,6 +34,7 @@ export default class Channel {
 
 
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
 
@@ -47,6 +49,7 @@ export default class Channel {
     }
     load(id) {
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
 
@@ -84,6 +87,7 @@ export default class Channel {
 
     findById(id){
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
 
@@ -104,6 +108,7 @@ export default class Channel {
     create(obj) {
 
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
             let id = toString(_.get(obj, '_id'));
@@ -138,10 +143,10 @@ export default class Channel {
                 created: new Date(),
                 userId: userIdObject,
                 members: members,
-            }
+            };
 
 
-            this.app.db.collection('channels').insertOne(channel, (err, info) => {
+            this.app.db.collection('channels').insertOne(channel, (err) => {
 
                 if (!err) {
 

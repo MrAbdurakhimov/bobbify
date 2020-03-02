@@ -18,6 +18,7 @@ export default class User {
 
     updateUserStatus(userId, isOnline = false) {
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
             // first update status of cache this.users
@@ -45,6 +46,7 @@ export default class User {
     find(query = {}, options = {}) {
 
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
             this.app.db.collection('users').find(query, options).toArray((err, users) => {
@@ -57,6 +59,7 @@ export default class User {
 
     search(q = "") {
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
 
@@ -94,6 +97,7 @@ export default class User {
         const password = _.get(user, 'password', '');
 
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
 
@@ -136,6 +140,7 @@ export default class User {
 
                     return resolve(token);
 
+                    // eslint-disable-next-line no-unused-vars
                 }).catch(err => {
 
                     return reject({message: "Login error"});
@@ -173,6 +178,7 @@ export default class User {
 
         id = `${id}`;
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
             // find in cache if found we return and dont nee to query db
@@ -339,6 +345,7 @@ export default class User {
 
         console.log("User:", user)
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
 
@@ -355,7 +362,7 @@ export default class User {
 
                 // insert new user object to users collections
 
-                db.collection('users').insertOne(user, (err, info) => {
+                db.collection('users').insertOne(user, (err) => {
 
 
                     // check if error return error to user

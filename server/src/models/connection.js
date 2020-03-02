@@ -26,7 +26,7 @@ export default class Connection {
         }
         catch (err) {
 
-            console.log("An error decode the socket mesage", msg);
+            console.log("An error decode the socket message", msg);
         }
 
 
@@ -79,7 +79,7 @@ export default class Connection {
         this.app.db.collection('channels').aggregate(query, (err, results) => {
 
 
-           // console.log("found members array who is chattting with current user", results);
+           // console.log("found members array who is chatting with current user", results);
             if (err === null && results) {
 
                 _.each(results, (result) => {
@@ -96,7 +96,7 @@ export default class Connection {
                 const memberConnections = this.connections.filter((con) => _.includes(users, _.toString(_.get(con, 'userId'))));
                 if (memberConnections.size) {
 
-                    memberConnections.forEach((connection, key) => {
+                    memberConnections.forEach((connection) => {
 
                         const ws = connection.ws;
                         this.send(ws, obj);
@@ -113,7 +113,7 @@ export default class Connection {
 
         // send socket messages to all clients.
 
-        this.connections.forEach((con, key) => {
+        this.connections.forEach((con) => {
             const ws = con.ws;
 
             this.send(ws, obj);
@@ -185,6 +185,7 @@ export default class Connection {
                         // message created successful.
 
 
+                        // eslint-disable-next-line no-unused-vars
                     }).catch(err => {
 
 
@@ -199,6 +200,7 @@ export default class Connection {
 
 
                 break;
+            // eslint-disable-next-line no-case-declarations
             case 'create_channel':
 
                 let channel = payload;
@@ -211,9 +213,10 @@ export default class Connection {
 
                     // successful created channel ,
 
-                    //console.log("Succesful created new channel", typeof userId, chanelObject);
+                    //console.log("Successful created new channel", typeof userId, chanelObject);
 
                     // let send back to all members in this channel  with new channel  created
+                    // eslint-disable-next-line no-unused-vars
                     let memberConnections = [];
 
                     const memberIds = _.get(chanelObject, 'members', []);
@@ -228,7 +231,7 @@ export default class Connection {
                         _id: 1,
                         name: 1,
                         created: 1,
-                    }
+                    };
 
                     this.app.models.user.find(query, queryOptions).then((users) => {
                         chanelObject.users = users;
@@ -272,6 +275,7 @@ export default class Connection {
 
                 break;
 
+            // eslint-disable-next-line no-case-declarations
             case 'auth':
 
                 const userTokenId = payload;
@@ -310,6 +314,7 @@ export default class Connection {
                         this.app.models.user.updateUserStatus(userIdString, true);
 
 
+                        // eslint-disable-next-line no-unused-vars
                     }).catch((err) => {
 
 

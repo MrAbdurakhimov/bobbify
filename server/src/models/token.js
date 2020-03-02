@@ -15,6 +15,7 @@ export default class Token{
 
     logout(token){
 
+		// eslint-disable-next-line no-undef
 		return new Promise((resolve, reject) => {
 
             const tokenId = _.toString(token._id);
@@ -32,6 +33,7 @@ export default class Token{
 	}
 	loadTokenAndUser(id){
 
+		// eslint-disable-next-line no-undef
 		return new Promise((resolve, reject) => {
 
 			this.load(id).then((token) => {
@@ -67,6 +69,7 @@ export default class Token{
 
 
 
+		// eslint-disable-next-line no-undef
 		return new Promise((resolve, reject) => {
 
 
@@ -120,13 +123,14 @@ export default class Token{
 		const token = {
 			userId: userId,
 			created: new Date(),
-		}
+		};
 
 		
+		// eslint-disable-next-line no-undef
 		return new Promise((resolve, reject) => {
 
 
-			this.app.db.collection('tokens').insertOne(token, (err, info) => {
+			this.app.db.collection('tokens').insertOne(token, (err) => {
 				return err ? reject(err) : resolve(token);
 			})
 

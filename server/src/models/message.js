@@ -11,6 +11,7 @@ export default class Message {
 
     getChannelMessages(channelId, limit = 50, offset = 0){
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
             channelId = new ObjectID(channelId);
@@ -78,6 +79,7 @@ export default class Message {
     create(obj) {
 
 
+        // eslint-disable-next-line no-undef
         return new Promise((resolve, reject) => {
 
 
@@ -96,20 +98,20 @@ export default class Message {
             };
 
 
-            this.app.db.collection('messages').insertOne(message, (err, info) => {
+            this.app.db.collection('messages').insertOne(message, (err) => {
 
                 if(err){
                     return reject(err);
                 }
 
 
-                // let update lastMessgage field to channel
+                // let update lastMessage field to channel
                 this.app.db.collection('channels').findOneAndUpdate({_id: channelId}, {
                     $set: {
                         lastMessage: _.get(message, 'body', ''),
                         updated: new Date(),
                     }
-                })
+                });
 
                 this.app.models.user.load(_.toString(userId)).then((user) => {
 
