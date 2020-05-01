@@ -48,9 +48,9 @@ cd ./client
 npm start
 ```
 
-> The web page is still in beta phase so feel free to [open issues](https://github.com/sakhib-orzklv/bobbify/issues/new) and give me some suggestions.
+> The web page is still in beta phase so feel free to [open issues](https://github.com/genemators/bobbify/issues/new) and give me some suggestions.
 ---
 
-> Important Note: Under the CC0 1.0 Universal license, if you're running your own instance, you should add a link to the source [(this repository)](https://github.com/sakhib-orzklv/bobbify) in your websites bio. If you're modifying this source and making your own bot, you should link to the source of your own version of the bot according to the CC0 1.0 Universal license. Check [LICENSE](LICENSE) for more info.
+> Important Note: Under the CC0 1.0 Universal license, if you're running your own instance, you should add a link to the source [(this repository)](https://github.com/genemators/bobbify) in your websites bio. If you're modifying this source and making your own bot, you should link to the source of your own version of the bot according to the CC0 1.0 Universal license. Check [LICENSE](LICENSE) for more info.
 
-`BSBA` icon is from [Genemator](https://t.me/sakhib_orzklv/) by Sokhibjon Orzikulov.
+`BSBA` icon is from [Genemator](https://t.me/genemator/) by Sokhibjon Orzikulov.
